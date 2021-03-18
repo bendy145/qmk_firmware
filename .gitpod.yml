@@ -1,0 +1,2 @@
+tasks:
+  - init: python3 -m pip install --user qmk && qmk setup -y
