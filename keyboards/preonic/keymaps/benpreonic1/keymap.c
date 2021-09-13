@@ -116,7 +116,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_LOWER] = LAYOUT_preonic_grid(
   KC_F1,    KC_F2,      KC_F3,       KC_F4,     KC_F5,   KC_F6,   KC_F7,    KC_F8,    KC_F9,    KC_F10,  KC_F11, KC_F12,
   KC_TILD,  KC_INSERT,  KC_PGUP,     KC_DELETE, KC_DLR,  KC_PERC, KC_CIRC,  KC_LBRC,  KC_RBRC,  KC_MINS, KC_EQUAL, KC_BSPC,
-  KC_DEL,   KC_HOME,    KC_PGDOWN,   KC_END,    KC_F4,   KC_F5,   KC_LEFT,  KC_DOWN,  KC_UP,    KC_RGHT, KC_RCBR, KC_PIPE,
+  _______,   KC_HOME,    KC_PGDOWN,   KC_END,    KC_F4,   KC_F5,   KC_LEFT,  KC_DOWN,  KC_UP,    KC_RGHT, KC_RCBR, KC_PIPE,
   _______,  KC_EXLM,    KC_AT,       KC_HASH,   KC_DLR,  KC_PERC, KC_CIRC,  KC_AMPR,  KC_ASTR,  KC_LPRN, KC_RPRN, _______,
   _______,   _______,   _______,    _______,    _______, _______, KC_CAPSLOCK, _______,   KC_MNXT,  KC_VOLD, KC_VOLU, KC_MPLY
 ),
@@ -136,8 +136,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_RAISE] = LAYOUT_preonic_grid(
   KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_PSLS,    KC_BSPC,
-  KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_PAST,    KC_DEL,
-  KC_DEL,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_4,    KC_5,    KC_6,    KC_MINUS,   KC_BSLS,
+  KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_PAST,    KC_BSPC,
+  _______,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_DOT,   KC_4,    KC_5,    KC_6,    KC_MINUS,   KC_BSLS,
   _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_0,    KC_1,    KC_2,    KC_3,    KC_PLUS,    _______,
   _______, _______, _______, _______, _______, _______, _______, _______, KC_MPLY, KC_VOLD, KC_VOLU,    KC_MNXT
 ),
@@ -235,7 +235,7 @@ uint16_t muse_tempo = 50;
 
 
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     uint16_t held_keycode_timer = timer_read();
     if (index == 0) { /* First encoder */
         if (clockwise) {
@@ -252,6 +252,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
             unregister_code(KC_VOLD);
         }
     }
+    return true;
 }
 
 /*void encoder_update_user(uint8_t index, bool clockwise) {
@@ -280,7 +281,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
   }
 }
 */
-void dip_switch_update_user(uint8_t index, bool active) {
+bool dip_switch_update_user(uint8_t index, bool active) {
     switch (index) {
         case 0:
             if (active) {
@@ -296,6 +297,7 @@ void dip_switch_update_user(uint8_t index, bool active) {
                 muse_mode = false;
             }
     }
+    return true;
 }
 
 
